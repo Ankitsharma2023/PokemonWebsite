@@ -60,7 +60,6 @@ const PokemonDetail: React.FC = () => {
 
   if (!pokemon) return <div className="text-center text-xl mt-8">Pokemon not found</div>;
 
-  // Collect all available sprites
   const sprites = [
     { src: pokemon.sprites.front_default},
     ...(pokemon.sprites.back_default ? [{ src: pokemon.sprites.back_default, }] : []),

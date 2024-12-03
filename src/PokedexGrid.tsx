@@ -172,9 +172,9 @@ const Pokedex: React.FC = () => {
       {showScrollButton && (
         <button 
           onClick={scrollToTop}
-          className="fixed bottom-40 right-8 bg-yellow-600 text-white p-4 rounded-full shadow-lg hover:bg-blue-700 transition-colors z-5000000"
+          className="fixed bottom-40 right-8 bg-yellow-600 text-white p-4 rounded-full shadow-lg hover:bg-blue-700 transition-colors z-1"
         >
-          <ArrowUp size={24} />
+          <ArrowUp size={48} />
         </button>
       )}
     </div>
