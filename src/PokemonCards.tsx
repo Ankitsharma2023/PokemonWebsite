@@ -1,6 +1,40 @@
 import React from 'react';
 
-export const PokemonCards = (props) => {
+interface PokemonCardProps {
+    id: number;
+    name: string;
+    types: { type: { name: string } }[]; // Matches how `types` is accessed
+    sprites: { front_default: string };  // Matches how `sprites` is accessed
+    darkMode: boolean;
+    height: number;
+    weight: number;
+    abilities: Ability[];
+}
+
+interface Ability {
+    ability: {
+        name: string;
+    };
+}
+
+interface PokemonDetails {
+    name: string;
+    height: number;
+    weight: number;
+    base_experience: number;
+    abilities: Ability[];
+}
+
+  
+
+export const PokemonCards: React.FC<PokemonCardProps> = ({
+    name,
+    sprites,
+    height,
+    weight,
+    abilities,
+    types,
+}) => {
     return (
         <div 
             className="product-card w-[300px] rounded-md shadow-xl overflow-hidden z-[100] relative cursor-pointer snap-start shrink-0 py-8 px-6 bg-white flex flex-col items-center justify-center gap-3 transition-all duration-300 group"
@@ -10,51 +44,47 @@ export const PokemonCards = (props) => {
                     style={{
                         WebkitTextStroke: '1px rgb(207, 205, 205)',
                         WebkitTextFillColor: 'transparent',
-                        fontSize: '3rem', // Increase size
-                        fontWeight: 'bold', // Make it bold
+                        fontSize: '3rem',
+                        fontWeight: 'bold', 
                     }}
                     className="z-10 t-lg -mb-5 tracking-wider text-gray-500"
-                >
-             
-                </p>
+                ></p>
                 <p
                     style={{
-                        fontSize: '2rem', // Increase size
-                        fontWeight: 'bold', // Make it bold
+                        fontSize: '2rem', 
+                        fontWeight: 'bold', 
                     }}
                     className="font-bold tracking-wider text-[#495c48] z-30"
                 >
-                    {props.name}
+                    {name}
                 </p>
             </div>
             
-            <div
-                className="w-[180px] aspect-square relative z-200 transition-all duration-300 flex items-center"
-            >
+            <div className="w-[180px] aspect-square relative z-200 transition-all duration-300 flex items-center">
                 <img 
-                    src={props.sprites.front_default} 
-                    alt={props.name} 
+                    src={sprites.front_default} 
+
+                    alt={name} 
                     className="w-full h-full object-contain group-hover:translate-x-3/4 transition-transform duration-500"
                 />
-                
                 <div
                     className="absolute left-full pl-4 w-[200px] opacity-0 group-hover:opacity-100 group-hover:-translate-x-full transition-all duration-500 ease-in-out"
                 >
                     <p
                         style={{
-                            fontSize: '2rem', // Increase size
-                            fontWeight: 'bold', // Make it bold
+
+                            fontSize: '2rem',
+
+                            fontWeight: 'bold', 
                         }}
                         className="text-[#7b956a] font-bold mb-2"
-                    >
-                        {/* Statistics */}
-                    </p>
+                    ></p>
                     <ul className="flex flex-col items-start gap-2">
-                        {[ 
-                            { label: "Weight", value: props.weight },
-                            { label: "Height", value: props.height },
-                            { label: "Ability", value: props.abilities[0].ability.name },
-                            { label: "Types", value: props.types.map(type => type.type.name).join(", ") }
+                        {[
+                            { label: "Weight", value: weight },
+                            { label: "Height", value: height },
+                            { label: "Ability", value: abilities[0].ability.name },
+                            { label: "Types", value: types.map(type => type.type.name).join(", ") }
                         ].map((stat, index) => (
                             <li
                                 key={stat.label}
@@ -68,7 +98,7 @@ export const PokemonCards = (props) => {
                                     stroke="#000000"
                                     fill="none"
                                     viewBox="0 0 24 24"
-                                    height="14" // Increased size of the icon
+                                    height="14" 
                                     width="14"
                                     xmlns="http://www.w3.org/2000/svg"
                                 >
@@ -77,8 +107,8 @@ export const PokemonCards = (props) => {
                                 </svg>
                                 <p
                                     style={{
-                                        fontSize: '1.2rem', // Increased size of stat text
-                                        fontWeight: 'bold', // Made it bold
+                                        fontSize: '1.2rem', 
+                                        fontWeight: 'bold', 
                                     }}
                                     className="text-[#495c48]"
                                 >

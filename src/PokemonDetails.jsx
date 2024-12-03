@@ -3,7 +3,9 @@ import { useParams } from 'react-router-dom';
 
 const PokemonDetail = () => {
   const { id } = useParams();
+
   const [pokemon, setPokemon] = useState(null);
+
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -13,16 +15,22 @@ const PokemonDetail = () => {
         const data = await response.json();
         setPokemon(data);
         setLoading(false);
-      } catch (error) {
+      } 
+      
+      
+      catch (error) {
         console.error('Error fetching Pokemon details:', error);
         setLoading(false);
       }
     };
 
     fetchPokemonDetails();
-  }, [id]);
+
+  }, 
+  [id]);
 
   if (loading) return <div>Loading...</div>;
+  
   if (!pokemon) return <div>Pokemon not found</div>;
 
   return (
@@ -43,6 +51,7 @@ const PokemonDetail = () => {
                 {pokemon.types.map(type => (
                   <span 
                     key={type.type.name} 
+
                     className="px-4 py-1 bg-green-500 text-white rounded-full capitalize"
                   >
                     {type.type.name}
@@ -60,6 +69,7 @@ const PokemonDetail = () => {
                     <div className="w-full bg-gray-200 rounded-full h-2.5">
                       <div 
                         className="bg-blue-600 h-2.5 rounded-full" 
+                        
                         style={{width: `${(stat.base_stat / 255) * 100}%`}}
                       ></div>
                     </div>

@@ -1,5 +1,5 @@
 import React from 'react'
-import Pok from './Pok'
+import Pok from './PokedexGrid'
 import PokemonDetail from './PokemonDetails'
 import { Routes, Route } from 'react-router-dom'
 import './App.css'
