@@ -1,3 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
 * {
   margin: 0;
   padding: 0;
@@ -11,7 +17,8 @@ html {
 
 body {
   width: 100%;
-  background-color: #eff3ff;
+  /* background-color:purple; */
+  background-image: url('https://i.pinimg.com/736x/48/5a/d2/485ad255cde385445e8ae312e1a99c97.jpg');
 }
 
 h1,
@@ -26,7 +33,7 @@ h6 {
 h1 {
   font-size: 5.4rem;
   font-weight: bold;
-  color: #000 !important;
+  color: white;
   text-align: center;
 }
 
@@ -218,4 +225,26 @@ pokemon-info {
     padding: 0.6rem 0;
     cursor: pointer;
   }
+}
+
+/* styles.css */
+.pokemon-search {
+  display: flex;
+  justify-content: start;
+  margin: 20px 0;
+}
+
+.pokemon-search input {
+  width: 300px;
+  padding: 10px;
+  border: 2px solid #ccc;
+  border-radius: 20px;
+  outline: none;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.pokemon-search input:focus {
+  border-color: #007BFF;
+  box-shadow: 0 0 800px rgba(0, 123, 255, 0.5);
 }

@@ -1,14 +1,15 @@
-import { useState } from 'react'
+import React from 'react'
 import Pok from './Pok'
+import PokemonDetail from './PokemonDetails'
+import { Routes, Route } from 'react-router-dom'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-     <Pok/>
-    </>
+    <Routes>
+      <Route path="/" element={<Pok />} />
+      <Route path="/pokemon/:id" element={<PokemonDetail />} />
+    </Routes>
   )
 }
 
