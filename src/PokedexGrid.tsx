@@ -1,8 +1,15 @@
 import React, { useEffect, useState } from "react";
+import { ArrowUp } from "lucide-react";
 import PokemonCards from "./PokemonTypeFilter ";
 
 interface PokemonType {
   type: {
+    name: string;
+  };
+}
+
+interface Ability {
+  ability: {
     name: string;
   };
 }
@@ -16,18 +23,20 @@ interface Pokemon {
   types: PokemonType[];
   height: number;
   weight: number;
-  abilities: {
-    ability: {
-      name: string;
-    };
-  }[];
+  abilities: Ability[];
 }
 
-const Pok: React.FC = () => {
+const Pokedex: React.FC = () => {
   const [pokemons, setPokemons] = useState<Pokemon[]>([]);
   const [search, setSearch] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
   const [selectedType, setSelectedType] = useState<string>("All");
+  const [favorites, setFavorites] = useState<number[]>(() => {
+   
+    const savedFavorites = localStorage.getItem('pokemon-favorites');
+    return savedFavorites ? JSON.parse(savedFavorites) : [];
+  });
+  const [showScrollButton, setShowScrollButton] = useState(false);
 
   // API URL
   const API = "https://pokeapi.co/api/v2/pokemon?limit=250";
@@ -54,7 +63,34 @@ const Pok: React.FC = () => {
 
   useEffect(() => {
     fetchPok();
+    
+
+    const handleScroll = () => {
+      setShowScrollButton(window.scrollY > 300);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  useEffect(() => {
+    localStorage.setItem('pokemon-favorites', JSON.stringify(favorites));
+  }, [favorites]);
+
+  const toggleFavorite = (pokemonId: number) => {
+    setFavorites(prev => 
+      prev.includes(pokemonId) 
+        ? prev.filter(id => id !== pokemonId) 
+        : [...prev, pokemonId]
+    );
+  };
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
 
   const allTypes = [
     "All",
@@ -76,12 +112,12 @@ const Pok: React.FC = () => {
   };
 
   if (loading) {
-    return <h1>Poke`dex is Loading.....</h1>;
+    return <h1>Pokédex is Loading.....</h1>;
   }
 
   return (
-    <>
-      <h1>Poke`dex</h1>
+    <div className="relative">
+      <h1>Pokédex</h1>
 
       <div className="pokemon-search mb-6">
         <input
@@ -91,6 +127,7 @@ const Pok: React.FC = () => {
           onChange={(e) => setSearch(e.target.value)}
           className="w-full max-w-md mx-auto block"
         />
+        
       </div>
 
       <div className="type-filter grid grid-cols-4 gap-4 max-w-4xl mx-auto mb-8">
@@ -110,16 +147,38 @@ const Pok: React.FC = () => {
           >
             {type}
           </button>
+          
         ))}
       </div>
 
-      <ul className="cards">
+      <ul className="cards flex flex-wrap justify-center gap-4">
         {filteredPokemons.map((curElem) => (
-          <PokemonCards key={curElem.id} {...curElem} />
+          <div key={curElem.id} className="relative">
+            <PokemonCards {...curElem} />
+            <button 
+              onClick={() => toggleFavorite(curElem.id)}
+              className={`absolute top-4 right-4 z-50 ${
+                favorites.includes(curElem.id) 
+                  ? 'text-yellow-400' 
+                  : 'text-gray-300 hover:text-gray-500'
+              }`}
+            >
+            </button>
+          </div>
         ))}
       </ul>
-    </>
+
+     
+      {showScrollButton && (
+        <button 
+          onClick={scrollToTop}
+          className="fixed bottom-40 right-8 bg-yellow-600 text-white p-4 rounded-full shadow-lg hover:bg-blue-700 transition-colors z-5000000"
+        >
+          <ArrowUp size={24} />
+        </button>
+      )}
+    </div>
   );
 };
 
-export default Pok;
+export default Pokedex;

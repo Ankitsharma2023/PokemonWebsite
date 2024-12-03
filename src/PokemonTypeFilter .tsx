@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-// Define interfaces for the props
 interface PokemonType {
   type: {
     name: string;
@@ -42,7 +41,7 @@ const PokemonCards: React.FC<PokemonCardProps> = (props) => {
             }}
             className="z-10 t-lg -mb-5 tracking-wider text-gray-500"
           >
-            {/* Placeholder for extra content if needed */}
+          
           </p>
           <p
             style={{
