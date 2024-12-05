@@ -41,16 +41,16 @@ const PokemonDetail: React.FC = () => {
     const fetchPokemonDetails = async () => {
       try {
         const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
-        if (!response.ok) {
-          throw new Error("Failed to fetch Pokemon details");
-        }
+        // if (!response.ok) {
+        //   throw new Error("Failed to fetch Pokemon details");
+        // }
         const data: PokemonData = await response.json();
         setPokemon(data);
       } catch (error) {
         console.error("Error fetching Pokemon details:", error);
-      } finally {
+      } 
         setLoading(false);
-      }
+
     };
 
     fetchPokemonDetails();
